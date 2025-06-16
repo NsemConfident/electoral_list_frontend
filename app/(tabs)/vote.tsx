@@ -1,7 +1,13 @@
 // components/VoterRegistrationButton.tsx
-import React from "react";
-import { TouchableOpacity, Text, View, Alert, ActivityIndicator } from "react-native";
 import { useAuth } from "@/contexts/authContext";
+import React from "react";
+import {
+  ActivityIndicator,
+  Alert,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 const VoterRegistrationButton = () => {
   const { voterStatus, isLoading, registerAsVoter } = useAuth();
@@ -9,7 +15,7 @@ const VoterRegistrationButton = () => {
   const handleRegister = async () => {
     try {
       const { success, error } = await registerAsVoter();
-      
+
       if (success) {
         Alert.alert(
           "Success",
@@ -17,18 +23,14 @@ const VoterRegistrationButton = () => {
           [{ text: "OK" }]
         );
       } else {
-        Alert.alert(
-          "Error",
-          error || "Failed to register as voter",
-          [{ text: "OK" }]
-        );
+        Alert.alert("Error", error || "Failed to register as voter", [
+          { text: "OK" },
+        ]);
       }
     } catch (err) {
-      Alert.alert(
-        "Error",
-        "An unexpected error occurred during registration",
-        [{ text: "OK" }]
-      );
+      Alert.alert("Error", "An unexpected error occurred during registration", [
+        { text: "OK" },
+      ]);
     }
   };
 
@@ -39,14 +41,20 @@ const VoterRegistrationButton = () => {
   if (!voterStatus?.is_registered) {
     return (
       <View className="p-4">
-        <TouchableOpacity
-          onPress={handleRegister}
-          className="bg-green-600 p-3 rounded-md"
-        >
-          <Text className="text-white text-center text-base font-medium">
-            Register as Voter
-          </Text>
-        </TouchableOpacity>
+        {voterStatus?.is_registered === true ? (
+          <View>
+            <Text>{console.log(voterStatus.is_registered)}</Text>
+          </View>
+        ) : (
+          <TouchableOpacity
+            onPress={handleRegister}
+            className="bg-green-600 p-3 rounded-md"
+          >
+            <Text className="text-white text-center text-base font-medium">
+              Register as Voter
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
     );
   }

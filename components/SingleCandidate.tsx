@@ -1,14 +1,34 @@
+// components/SingleCandidate.tsx
+import { useAuth } from "@/contexts/authContext";
 import { PresidentialCandidate } from "@/types/candidate";
 import React from "react";
-import { Image, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Image, Text, TouchableOpacity, View } from "react-native";
 
 type ItemProps = {
   item: PresidentialCandidate;
-  //   onPress: () => void;
-  //   backgroundColor: string;
-  //   textColor: string;
 };
+
 const SingleCandidate = ({ item }: ItemProps) => {
+  const { voterStatus, castVote } = useAuth();
+
+  const handleVote = async () => {
+    try {
+      const { success, error } = await castVote(item.id);
+
+      if (success) {
+        Alert.alert("Success", "Your vote has been cast successfully!", [
+          { text: "OK" },
+        ]);
+      } else {
+        Alert.alert("Error", error || "Failed to cast vote", [{ text: "OK" }]);
+      }
+    } catch (err) {
+      Alert.alert("Error", "An unexpected error occurred while voting", [
+        { text: "OK" },
+      ]);
+    }
+  };
+
   return (
     <View className="flex flex-col mx-2">
       <View className="block bg-white border p-4 border-gray-200 rounded-lg shadow-sm">
@@ -43,10 +63,10 @@ const SingleCandidate = ({ item }: ItemProps) => {
           <Text className="font-normal text-gray-900">{item.region}</Text>
           <View>
             <TouchableOpacity
-              onPress={() => {}}
+              onPress={handleVote}
               className="bg-primary p-2 rounded-md ml-auto"
             >
-              <Text className=" text-white text-base">Vote</Text>
+              <Text className="text-white text-base">Vote</Text>
             </TouchableOpacity>
           </View>
         </View>
