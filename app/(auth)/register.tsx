@@ -1,4 +1,3 @@
-// app/(auth)/login.tsx
 import { useAuth } from "@/contexts/authContext";
 import React, { useState } from "react";
 import {

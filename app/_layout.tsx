@@ -3,6 +3,7 @@ import { AuthProvider } from '@/contexts/authContext';
 import './globals.css'
 
 export default function RootLayout() {
+  
   return (
     <AuthProvider>
       <Stack screenOptions={{ headerShown: false }}>

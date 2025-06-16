@@ -27,13 +27,32 @@ export interface RegisterData extends LoginCredentials {
   name: string;
   password_confirmation: string;
 }
-
+export interface VoterStatus {
+  is_registered: boolean;
+  has_voted: boolean;
+  voted_candidate_id?: number;
+}
 export interface AuthContextType {
   user: User | null;
+  voterStatus: VoterStatus | null;
   isLoading: boolean;
-  login: (credentials: LoginCredentials) => Promise<{ success: boolean; error?: string }>;
-  register: (data: RegisterData) => Promise<{ success: boolean; error?: string }>;
+  biometricToken: string | null;
+  login: (
+    credentials: LoginCredentials
+  ) => Promise<{ success: boolean; error?: string }>;
+  register: (
+    data: RegisterData
+  ) => Promise<{ success: boolean; error?: string }>;
   logout: () => Promise<void>;
+  registerAsVoter: () => Promise<{ success: boolean; error?: string }>;
+  castVote: (
+    candidateId: number
+  ) => Promise<{ success: boolean; error?: string }>;
+  checkBiometricSupport: () => Promise<{
+    isAvailable: boolean;
+    type?: "fingerprint" | "face" | "iris";
+    error?: string;
+  }>;
 }
 
 export interface ApiResponse<T = any> {
