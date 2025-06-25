@@ -15,7 +15,7 @@ export default function TabsLayout() {
           tabBarActiveTintColor: "teal",
           tabBarStyle: { position: "absolute" },
           headerStyle: {
-            backgroundColor: Colors.primary,
+            backgroundColor: '#16423C',
           },
           headerTintColor: Colors.light,
           headerRight: () => (
@@ -58,7 +58,7 @@ export default function TabsLayout() {
           }}
         />
         <Tabs.Screen
-          name="Candidates"
+          name="candidates"
           options={{
             title: "Candidates",
             tabBarIcon: ({ color }) => (

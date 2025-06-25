@@ -43,7 +43,7 @@ const VoterRegistrationButton = () => {
       <View className="p-4">
         {voterStatus?.is_registered === true ? (
           <View>
-            <Text>{console.log(voterStatus.is_registered)}</Text>
+            <Text>You are already a voter</Text>
           </View>
         ) : (
           <TouchableOpacity
